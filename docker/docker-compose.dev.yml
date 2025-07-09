@@ -27,11 +27,12 @@ services:
       target: dev
     restart: unless-stopped
     volumes:
-      - ../server:/usr/src/app/server
-      - ../open-api:/usr/src/app/open-api
+      - ..:/usr/src/app
       - ${UPLOAD_LOCATION}/photos:/usr/src/app/upload
       - ${UPLOAD_LOCATION}/photos/upload:/usr/src/app/upload/upload
-      - /usr/src/app/server/node_modules
+      - pnpm-store:/usr/src/app/.pnpm-store
+      - server-app-modules:/usr/src/app/node_modules
+      - server-modules:/usr/src/app/server/node_modules
       - /etc/localtime:/etc/localtime:ro
     env_file:
       - .env
@@ -79,11 +80,17 @@ services:
       - 3000:3000
       - 24678:24678
     volumes:
-      - ../web:/usr/src/app/web
-      - ../i18n:/usr/src/app/i18n
-      - ../open-api/:/usr/src/app/open-api/
-      # - ../../ui:/usr/ui
-      - /usr/src/app/web/node_modules
+      - ..:/usr/src/app
+      - /usr/src/app/.github/node_modules
+      - /usr/src/app/cli/node_modules
+      - /usr/src/app/docs/node_modules
+      - /usr/src/app/e2e/node_modules
+      - /usr/src/app/open-api/typescript-sdk/node_modules
+      - /usr/src/app/web/.svelte-kit
+      - /usr/src/app/web/coverage
+      - web-app-modules:/usr/src/app/node_modules
+      - web-modules:/usr/src/app/web/node_modules
+      - pnpm-store:/usr/src/app/.pnpm-store
     ulimits:
       nofile:
         soft: 1048576
@@ -162,3 +169,8 @@ volumes:
   model-cache:
   prometheus-data:
   grafana-data:
+  web-app-modules:
+  web-modules:
+  server-app-modules:
+  server-modules:
+  pnpm-store:
