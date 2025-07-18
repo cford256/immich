@@ -12,7 +12,16 @@ RUN  echo "umask 000" | tee /etc/profile /etc/bash.bashrc >/dev/null && \
   mkdir -p /usr/src/app/upload && \
   corepack enable pnpm && \
   pnpm config set store-dir /buildcache/pnpm-store && \
-  mkdir -p /usr/src/app/.pnpm-store
+  mkdir -p /workspaces/immich/node_modules && \
+  mkdir -p /workspaces/immich/web/node_modules && \
+  mkdir -p /workspaces/immich/web/.svelte-kit && \
+  mkdir -p /workspaces/immich/web/coverage && \
+  mkdir -p /workspaces/immich/.pnpm-store && \
+  mkdir -p /workspaces/immich/.github/node_modules && \
+  mkdir -p /workspaces/immich/docs/node_modules && \
+  mkdir -p /workspaces/immich/e2e/node_modules && \
+  mkdir -p /workspaces/immich/open-api/typescript-sdk/node_modules && \
+  mkdir -p /workspaces/immich/cli/node_modules
 
 ENV PATH="${PATH}:/usr/src/app/server/bin" \
   IMMICH_ENV=development \
@@ -27,14 +36,21 @@ RUN apt-get update && \
   vim nano \
   -y --no-install-recommends --fix-missing
 
-RUN usermod -aG sudo node
-RUN echo "node ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-RUN mkdir -p /workspaces/immich
+RUN usermod -aG sudo node && \
+  echo "node ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
+  echo "umask 000" | tee /etc/profile /etc/bash.bashrc >/dev/null && \
+  umask 000 && mkdir -p /workspaces/immich && \
+  mkdir -p /workspaces/immich/.pnpm-store
+
 COPY --chmod=777 ../.devcontainer/server/*.sh /immich-devcontainer/
 
-COPY .. /tmp/create-dep-cache/
+COPY ./package* ./pnpm* .pnpmfile.cjs /tmp/create-dep-cache/
+COPY ./web/package* ./web/pnpm* /tmp/create-dep-cache/web/
+COPY ./server/package* ./server/pnpm* /tmp/create-dep-cache/server/
+COPY ./open-api/typescript-sdk/package* ./open-api/typescript-sdk/pnpm* /tmp/create-dep-cache/open-api/typescript-sdk/
 WORKDIR /tmp/create-dep-cache
-RUN make setup-server-dev setup-web-dev && rm -rf /tmp/create-dep-cache
+RUN umask 000 && pnpm fetch && rm -rf /tmp/create-dep-cache
+WORKDIR /workspaces/immich
 
 FROM dev-container-server AS dev-container-mobile
 
