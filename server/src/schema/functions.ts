@@ -80,6 +80,19 @@ export const ll_to_earth_public = registerFunction({
   body: `SELECT public.cube(public.cube(public.cube(public.earth()*cos(radians(latitude))*cos(radians(longitude))),public.earth()*cos(radians(latitude))*sin(radians(longitude))),public.earth()*sin(radians(latitude)))::public.earth`,
 });
 
+export const group_delete_audit = registerFunction({
+  name: 'group_delete_audit',
+  returnType: 'TRIGGER',
+  language: 'PLPGSQL',
+  body: `
+    BEGIN
+      INSERT INTO group_audit ("groupId")
+      SELECT "id"
+      FROM OLD;
+      RETURN NULL;
+    END`,
+});
+
 export const user_delete_audit = registerFunction({
   name: 'user_delete_audit',
   returnType: 'TRIGGER',
@@ -158,6 +171,26 @@ export const album_user_delete_audit = registerFunction({
       IF pg_trigger_depth() = 1 THEN
         INSERT INTO album_user_audit ("albumId", "userId")
         SELECT "albumsId", "usersId"
+        FROM OLD;
+      END IF;
+
+      RETURN NULL;
+    END`,
+});
+
+export const group_user_delete_audit = registerFunction({
+  name: 'group_user_delete_audit',
+  returnType: 'TRIGGER',
+  language: 'PLPGSQL',
+  body: `
+    BEGIN
+      INSERT INTO group_audit ("groupId", "userId")
+      SELECT "groupId", "userId"
+      FROM OLD;
+
+      IF pg_trigger_depth() = 1 THEN
+        INSERT INTO group_user_audit ("groupId", "userId")
+        SELECT "groupId", "userId"
         FROM OLD;
       END IF;
 

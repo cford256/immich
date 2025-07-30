@@ -80,10 +80,13 @@ export const ValidateUUID = (options?: UUIDOptions & ApiPropertyOptions) => {
 };
 
 export class UUIDParamDto {
-  @IsNotEmpty()
-  @IsUUID('4')
-  @ApiProperty({ format: 'uuid' })
+  @ValidateUUID()
   id!: string;
+}
+
+export class UserIdAndIdParamDto extends UUIDParamDto {
+  @ValidateUUID()
+  userId!: string;
 }
 
 export class UUIDAssetIDParamDto {

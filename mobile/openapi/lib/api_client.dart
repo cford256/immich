@@ -336,6 +336,18 @@ class ApiClient {
           return FoldersResponse.fromJson(value);
         case 'FoldersUpdate':
           return FoldersUpdate.fromJson(value);
+        case 'GroupAdminCreateDto':
+          return GroupAdminCreateDto.fromJson(value);
+        case 'GroupAdminResponseDto':
+          return GroupAdminResponseDto.fromJson(value);
+        case 'GroupAdminUpdateDto':
+          return GroupAdminUpdateDto.fromJson(value);
+        case 'GroupUserCreateAllDto':
+          return GroupUserCreateAllDto.fromJson(value);
+        case 'GroupUserDto':
+          return GroupUserDto.fromJson(value);
+        case 'GroupUserResponseDto':
+          return GroupUserResponseDto.fromJson(value);
         case 'ImageFormat':
           return ImageFormatTypeTransformer().decode(value);
         case 'JobCommand':

@@ -319,6 +319,7 @@ export const columns = {
     'shared_link.allowDownload',
     'shared_link.password',
   ],
+  groupAdmin: ['group.id', 'group.name', 'group.description', 'group.createdAt', 'group.updatedAt'],
   user: userColumns,
   userWithPrefix: userWithPrefixColumns,
   userAdmin: [

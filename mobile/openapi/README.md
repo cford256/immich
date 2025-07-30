@@ -129,6 +129,13 @@ Class | Method | HTTP request | Description
 *FacesApi* | [**deleteFace**](doc//FacesApi.md#deleteface) | **DELETE** /faces/{id} | 
 *FacesApi* | [**getFaces**](doc//FacesApi.md#getfaces) | **GET** /faces | 
 *FacesApi* | [**reassignFacesById**](doc//FacesApi.md#reassignfacesbyid) | **PUT** /faces/{id} | 
+*GroupsAdminApi* | [**addUsersToGroup**](doc//GroupsAdminApi.md#adduserstogroup) | **PUT** /admin/groups/{id}/users | 
+*GroupsAdminApi* | [**createGroupAdmin**](doc//GroupsAdminApi.md#creategroupadmin) | **POST** /admin/groups | 
+*GroupsAdminApi* | [**deleteGroupAdmin**](doc//GroupsAdminApi.md#deletegroupadmin) | **DELETE** /admin/groups/{id} | 
+*GroupsAdminApi* | [**getGroupAdmin**](doc//GroupsAdminApi.md#getgroupadmin) | **GET** /admin/groups/{id} | 
+*GroupsAdminApi* | [**removeUserFromGroup**](doc//GroupsAdminApi.md#removeuserfromgroup) | **DELETE** /admin/groups/{id}/user/{userId} | 
+*GroupsAdminApi* | [**searchGroupsAdmin**](doc//GroupsAdminApi.md#searchgroupsadmin) | **GET** /admin/groups | 
+*GroupsAdminApi* | [**updateGroupAdmin**](doc//GroupsAdminApi.md#updategroupadmin) | **PUT** /admin/groups/{id} | 
 *JobsApi* | [**createJob**](doc//JobsApi.md#createjob) | **POST** /jobs | 
 *JobsApi* | [**getAllJobsStatus**](doc//JobsApi.md#getalljobsstatus) | **GET** /jobs | 
 *JobsApi* | [**sendJobCommand**](doc//JobsApi.md#sendjobcommand) | **PUT** /jobs/{id} | 
@@ -360,6 +367,12 @@ Class | Method | HTTP request | Description
  - [FacialRecognitionConfig](doc//FacialRecognitionConfig.md)
  - [FoldersResponse](doc//FoldersResponse.md)
  - [FoldersUpdate](doc//FoldersUpdate.md)
+ - [GroupAdminCreateDto](doc//GroupAdminCreateDto.md)
+ - [GroupAdminResponseDto](doc//GroupAdminResponseDto.md)
+ - [GroupAdminUpdateDto](doc//GroupAdminUpdateDto.md)
+ - [GroupUserCreateAllDto](doc//GroupUserCreateAllDto.md)
+ - [GroupUserDto](doc//GroupUserDto.md)
+ - [GroupUserResponseDto](doc//GroupUserResponseDto.md)
  - [ImageFormat](doc//ImageFormat.md)
  - [JobCommand](doc//JobCommand.md)
  - [JobCommandDto](doc//JobCommandDto.md)

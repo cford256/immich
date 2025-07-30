@@ -214,6 +214,344 @@
         "description": "This endpoint requires the `activity.delete` permission."
       }
     },
+    "/admin/groups": {
+      "get": {
+        "operationId": "searchGroupsAdmin",
+        "parameters": [
+          {
+            "name": "id",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/GroupAdminResponseDto"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "cookie": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "tags": [
+          "Groups (admin)"
+        ],
+        "x-immich-admin-only": true,
+        "x-immich-permission": "adminGroup.read",
+        "description": "This endpoint is an admin-only route, and requires the `adminGroup.read` permission."
+      },
+      "post": {
+        "operationId": "createGroupAdmin",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GroupAdminCreateDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupAdminResponseDto"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "cookie": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "tags": [
+          "Groups (admin)"
+        ],
+        "x-immich-admin-only": true,
+        "x-immich-permission": "adminGroup.create",
+        "description": "This endpoint is an admin-only route, and requires the `adminGroup.create` permission."
+      }
+    },
+    "/admin/groups/{id}": {
+      "delete": {
+        "operationId": "deleteGroupAdmin",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "cookie": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "tags": [
+          "Groups (admin)"
+        ],
+        "x-immich-admin-only": true,
+        "x-immich-permission": "adminGroup.delete",
+        "description": "This endpoint is an admin-only route, and requires the `adminGroup.delete` permission."
+      },
+      "get": {
+        "operationId": "getGroupAdmin",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupAdminResponseDto"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "cookie": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "tags": [
+          "Groups (admin)"
+        ],
+        "x-immich-admin-only": true,
+        "x-immich-permission": "adminGroup.read",
+        "description": "This endpoint is an admin-only route, and requires the `adminGroup.read` permission."
+      },
+      "put": {
+        "operationId": "updateGroupAdmin",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GroupAdminUpdateDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupAdminResponseDto"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "cookie": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "tags": [
+          "Groups (admin)"
+        ],
+        "x-immich-admin-only": true,
+        "x-immich-permission": "adminGroup.update",
+        "description": "This endpoint is an admin-only route, and requires the `adminGroup.update` permission."
+      }
+    },
+    "/admin/groups/{id}/user/{userId}": {
+      "delete": {
+        "operationId": "removeUserFromGroup",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "cookie": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "tags": [
+          "Groups (admin)"
+        ],
+        "x-immich-permission": "adminGroupUser.delete",
+        "description": "This endpoint requires the `adminGroupUser.delete` permission."
+      }
+    },
+    "/admin/groups/{id}/users": {
+      "put": {
+        "operationId": "addUsersToGroup",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GroupUserCreateAllDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/GroupUserResponseDto"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "cookie": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "tags": [
+          "Groups (admin)"
+        ],
+        "x-immich-admin-only": true,
+        "x-immich-permission": "adminGroupUser.create",
+        "description": "This endpoint is an admin-only route, and requires the `adminGroupUser.create` permission."
+      }
+    },
     "/admin/notifications": {
       "post": {
         "operationId": "createNotification",
@@ -11408,6 +11746,117 @@
         },
         "type": "object"
       },
+      "GroupAdminCreateDto": {
+        "properties": {
+          "description": {
+            "nullable": true,
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "users": {
+            "items": {
+              "$ref": "#/components/schemas/GroupUserDto"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      },
+      "GroupAdminResponseDto": {
+        "properties": {
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "description": {
+            "nullable": true,
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "createdAt",
+          "description",
+          "id",
+          "name",
+          "updatedAt"
+        ],
+        "type": "object"
+      },
+      "GroupAdminUpdateDto": {
+        "properties": {
+          "description": {
+            "nullable": true,
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "GroupUserCreateAllDto": {
+        "properties": {
+          "users": {
+            "items": {
+              "$ref": "#/components/schemas/GroupUserDto"
+            },
+            "minItems": 1,
+            "type": "array"
+          }
+        },
+        "required": [
+          "users"
+        ],
+        "type": "object"
+      },
+      "GroupUserDto": {
+        "properties": {
+          "userId": {
+            "format": "uuid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "userId"
+        ],
+        "type": "object"
+      },
+      "GroupUserResponseDto": {
+        "properties": {
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "createdAt",
+          "updatedAt",
+          "userId"
+        ],
+        "type": "object"
+      },
       "ImageFormat": {
         "enum": [
           "jpeg",
@@ -12675,6 +13124,14 @@
           "userProfileImage.read",
           "userProfileImage.update",
           "userProfileImage.delete",
+          "adminGroup.create",
+          "adminGroup.read",
+          "adminGroup.update",
+          "adminGroup.delete",
+          "adminGroupUser.create",
+          "adminGroupUser.read",
+          "adminGroupUser.update",
+          "adminGroupUser.delete",
           "adminUser.create",
           "adminUser.read",
           "adminUser.update",

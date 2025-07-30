@@ -230,6 +230,16 @@ export enum Permission {
   UserProfileImageUpdate = 'userProfileImage.update',
   UserProfileImageDelete = 'userProfileImage.delete',
 
+  AdminGroupCreate = 'adminGroup.create',
+  AdminGroupRead = 'adminGroup.read',
+  AdminGroupUpdate = 'adminGroup.update',
+  AdminGroupDelete = 'adminGroup.delete',
+
+  AdminGroupUserCreate = 'adminGroupUser.create',
+  AdminGroupUserRead = 'adminGroupUser.read',
+  AdminGroupUserUpdate = 'adminGroupUser.update',
+  AdminGroupUserDelete = 'adminGroupUser.delete',
+
   AdminUserCreate = 'adminUser.create',
   AdminUserRead = 'adminUser.read',
   AdminUserUpdate = 'adminUser.update',

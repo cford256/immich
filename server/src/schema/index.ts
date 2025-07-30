@@ -36,6 +36,10 @@ import { AssetTable } from 'src/schema/tables/asset.table';
 import { AuditTable } from 'src/schema/tables/audit.table';
 import { FaceSearchTable } from 'src/schema/tables/face-search.table';
 import { GeodataPlacesTable } from 'src/schema/tables/geodata-places.table';
+import { GroupAuditTable } from 'src/schema/tables/group-audit.table';
+import { GroupUserAuditTable } from 'src/schema/tables/group-user-audit.table';
+import { GroupUserTable } from 'src/schema/tables/group-user.table';
+import { GroupTable } from 'src/schema/tables/group.table';
 import { LibraryTable } from 'src/schema/tables/library.table';
 import { MemoryAssetAuditTable } from 'src/schema/tables/memory-asset-audit.table';
 import { MemoryAssetTable } from 'src/schema/tables/memory-asset.table';
@@ -88,6 +92,10 @@ export class ImmichDatabase {
     AssetExifTable,
     FaceSearchTable,
     GeodataPlacesTable,
+    GroupTable,
+    GroupAuditTable,
+    GroupUserTable,
+    GroupUserAuditTable,
     LibraryTable,
     MemoryTable,
     MemoryAuditTable,
@@ -172,6 +180,11 @@ export interface DB {
   face_search: FaceSearchTable;
 
   geodata_places: GeodataPlacesTable;
+
+  group: GroupTable;
+  group_audit: GroupAuditTable;
+  group_user: GroupUserTable;
+  group_user_audit: GroupUserAuditTable;
 
   library: LibraryTable;
 

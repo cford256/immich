@@ -40,6 +40,33 @@ export type ActivityStatisticsResponseDto = {
     comments: number;
     likes: number;
 };
+export type GroupAdminResponseDto = {
+    createdAt: string;
+    description: string | null;
+    id: string;
+    name: string;
+    updatedAt: string;
+};
+export type GroupUserDto = {
+    userId: string;
+};
+export type GroupAdminCreateDto = {
+    description?: string | null;
+    name: string;
+    users?: GroupUserDto[];
+};
+export type GroupAdminUpdateDto = {
+    description?: string | null;
+    name?: string;
+};
+export type GroupUserCreateAllDto = {
+    users: GroupUserDto[];
+};
+export type GroupUserResponseDto = {
+    createdAt: string;
+    updatedAt: string;
+    userId: string;
+};
 export type NotificationCreateDto = {
     data?: object;
     description?: string | null;
@@ -1643,6 +1670,106 @@ export function deleteActivity({ id }: {
         ...opts,
         method: "DELETE"
     }));
+}
+/**
+ * This endpoint is an admin-only route, and requires the `adminGroup.read` permission.
+ */
+export function searchGroupsAdmin({ id, userId }: {
+    id?: string;
+    userId?: string;
+}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.ok(oazapfts.fetchJson<{
+        status: 200;
+        data: GroupAdminResponseDto[];
+    }>(`/admin/groups${QS.query(QS.explode({
+        id,
+        userId
+    }))}`, {
+        ...opts
+    }));
+}
+/**
+ * This endpoint is an admin-only route, and requires the `adminGroup.create` permission.
+ */
+export function createGroupAdmin({ groupAdminCreateDto }: {
+    groupAdminCreateDto: GroupAdminCreateDto;
+}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.ok(oazapfts.fetchJson<{
+        status: 201;
+        data: GroupAdminResponseDto;
+    }>("/admin/groups", oazapfts.json({
+        ...opts,
+        method: "POST",
+        body: groupAdminCreateDto
+    })));
+}
+/**
+ * This endpoint is an admin-only route, and requires the `adminGroup.delete` permission.
+ */
+export function deleteGroupAdmin({ id }: {
+    id: string;
+}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.ok(oazapfts.fetchText(`/admin/groups/${encodeURIComponent(id)}`, {
+        ...opts,
+        method: "DELETE"
+    }));
+}
+/**
+ * This endpoint is an admin-only route, and requires the `adminGroup.read` permission.
+ */
+export function getGroupAdmin({ id }: {
+    id: string;
+}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.ok(oazapfts.fetchJson<{
+        status: 200;
+        data: GroupAdminResponseDto;
+    }>(`/admin/groups/${encodeURIComponent(id)}`, {
+        ...opts
+    }));
+}
+/**
+ * This endpoint is an admin-only route, and requires the `adminGroup.update` permission.
+ */
+export function updateGroupAdmin({ id, groupAdminUpdateDto }: {
+    id: string;
+    groupAdminUpdateDto: GroupAdminUpdateDto;
+}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.ok(oazapfts.fetchJson<{
+        status: 200;
+        data: GroupAdminResponseDto;
+    }>(`/admin/groups/${encodeURIComponent(id)}`, oazapfts.json({
+        ...opts,
+        method: "PUT",
+        body: groupAdminUpdateDto
+    })));
+}
+/**
+ * This endpoint requires the `adminGroupUser.delete` permission.
+ */
+export function removeUserFromGroup({ id, userId }: {
+    id: string;
+    userId: string;
+}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.ok(oazapfts.fetchText(`/admin/groups/${encodeURIComponent(id)}/user/${encodeURIComponent(userId)}`, {
+        ...opts,
+        method: "DELETE"
+    }));
+}
+/**
+ * This endpoint is an admin-only route, and requires the `adminGroupUser.create` permission.
+ */
+export function addUsersToGroup({ id, groupUserCreateAllDto }: {
+    id: string;
+    groupUserCreateAllDto: GroupUserCreateAllDto;
+}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.ok(oazapfts.fetchJson<{
+        status: 200;
+        data: GroupUserResponseDto[];
+    }>(`/admin/groups/${encodeURIComponent(id)}/users`, oazapfts.json({
+        ...opts,
+        method: "PUT",
+        body: groupUserCreateAllDto
+    })));
 }
 export function createNotification({ notificationCreateDto }: {
     notificationCreateDto: NotificationCreateDto;
@@ -4660,6 +4787,14 @@ export enum Permission {
     UserProfileImageRead = "userProfileImage.read",
     UserProfileImageUpdate = "userProfileImage.update",
     UserProfileImageDelete = "userProfileImage.delete",
+    AdminGroupCreate = "adminGroup.create",
+    AdminGroupRead = "adminGroup.read",
+    AdminGroupUpdate = "adminGroup.update",
+    AdminGroupDelete = "adminGroup.delete",
+    AdminGroupUserCreate = "adminGroupUser.create",
+    AdminGroupUserRead = "adminGroupUser.read",
+    AdminGroupUserUpdate = "adminGroupUser.update",
+    AdminGroupUserDelete = "adminGroupUser.delete",
     AdminUserCreate = "adminUser.create",
     AdminUserRead = "adminUser.read",
     AdminUserUpdate = "adminUser.update",

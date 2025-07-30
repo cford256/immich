@@ -145,6 +145,14 @@ class Permission {
   static const userProfileImagePeriodRead = Permission._(r'userProfileImage.read');
   static const userProfileImagePeriodUpdate = Permission._(r'userProfileImage.update');
   static const userProfileImagePeriodDelete = Permission._(r'userProfileImage.delete');
+  static const adminGroupPeriodCreate = Permission._(r'adminGroup.create');
+  static const adminGroupPeriodRead = Permission._(r'adminGroup.read');
+  static const adminGroupPeriodUpdate = Permission._(r'adminGroup.update');
+  static const adminGroupPeriodDelete = Permission._(r'adminGroup.delete');
+  static const adminGroupUserPeriodCreate = Permission._(r'adminGroupUser.create');
+  static const adminGroupUserPeriodRead = Permission._(r'adminGroupUser.read');
+  static const adminGroupUserPeriodUpdate = Permission._(r'adminGroupUser.update');
+  static const adminGroupUserPeriodDelete = Permission._(r'adminGroupUser.delete');
   static const adminUserPeriodCreate = Permission._(r'adminUser.create');
   static const adminUserPeriodRead = Permission._(r'adminUser.read');
   static const adminUserPeriodUpdate = Permission._(r'adminUser.update');
@@ -274,6 +282,14 @@ class Permission {
     userProfileImagePeriodRead,
     userProfileImagePeriodUpdate,
     userProfileImagePeriodDelete,
+    adminGroupPeriodCreate,
+    adminGroupPeriodRead,
+    adminGroupPeriodUpdate,
+    adminGroupPeriodDelete,
+    adminGroupUserPeriodCreate,
+    adminGroupUserPeriodRead,
+    adminGroupUserPeriodUpdate,
+    adminGroupUserPeriodDelete,
     adminUserPeriodCreate,
     adminUserPeriodRead,
     adminUserPeriodUpdate,
@@ -438,6 +454,14 @@ class PermissionTypeTransformer {
         case r'userProfileImage.read': return Permission.userProfileImagePeriodRead;
         case r'userProfileImage.update': return Permission.userProfileImagePeriodUpdate;
         case r'userProfileImage.delete': return Permission.userProfileImagePeriodDelete;
+        case r'adminGroup.create': return Permission.adminGroupPeriodCreate;
+        case r'adminGroup.read': return Permission.adminGroupPeriodRead;
+        case r'adminGroup.update': return Permission.adminGroupPeriodUpdate;
+        case r'adminGroup.delete': return Permission.adminGroupPeriodDelete;
+        case r'adminGroupUser.create': return Permission.adminGroupUserPeriodCreate;
+        case r'adminGroupUser.read': return Permission.adminGroupUserPeriodRead;
+        case r'adminGroupUser.update': return Permission.adminGroupUserPeriodUpdate;
+        case r'adminGroupUser.delete': return Permission.adminGroupUserPeriodDelete;
         case r'adminUser.create': return Permission.adminUserPeriodCreate;
         case r'adminUser.read': return Permission.adminUserPeriodRead;
         case r'adminUser.update': return Permission.adminUserPeriodUpdate;
