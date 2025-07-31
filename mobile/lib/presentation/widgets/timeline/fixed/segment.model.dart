@@ -111,20 +111,9 @@ class _FixedSegmentRow extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final timelineService = ref.read(timelineServiceProvider);
-
-    if (timelineService.hasRange(assetIndex, assetCount)) {
-      return _buildAssetRow(context, timelineService.getAssets(assetIndex, assetCount), timelineService);
-    }
-
     try {
       final assets = timelineService.getAssets(assetIndex, assetCount);
-      return FutureBuilder<List<BaseAsset>>(
-        future: null,
-        initialData: assets,
-        builder: (context, snapshot) {
-          return _buildAssetRow(context, snapshot.data, timelineService);
-        },
-      );
+      return _buildAssetRow(context, assets, timelineService);
     } catch (e) {
       return FutureBuilder<List<BaseAsset>>(
         future: timelineService.loadAssets(assetIndex, assetCount),
@@ -136,18 +125,26 @@ class _FixedSegmentRow extends ConsumerWidget {
   }
 
   Widget _buildAssetRow(BuildContext context, List<BaseAsset>? assets, TimelineService timelineService) {
+    final assetCount = this.assetCount;
+    final assetIndex = this.assetIndex;
+    final row = List.filled(assetCount, const _AssetTileWidget(asset: null, assetIndex: 0));
+    if (assets != null) {
+      for (int i = 0; i < row.length; i++) {
+        final curAssetIndex = assetIndex + i;
+        final asset = assets[i];
+        row[i] = _AssetTileWidget(
+          key: ValueKey(asset.heroTag.hashCode ^ curAssetIndex.hashCode ^ timelineService.hashCode),
+          asset: assets[i],
+          assetIndex: curAssetIndex,
+        );
+      }
+    }
+
     return FixedTimelineRow(
       dimension: tileHeight,
       spacing: spacing,
       textDirection: Directionality.of(context),
-      children: [
-        for (int i = 0; i < assetCount; i++)
-          _AssetTileWidget(
-            key: ValueKey(i.hashCode ^ (assetIndex + i).hashCode ^ timelineService.hashCode),
-            asset: assets == null ? null : assets[i],
-            assetIndex: assetIndex + i,
-          ),
-      ],
+      children: row,
     );
   }
 }
